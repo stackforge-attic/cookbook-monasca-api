@@ -1,0 +1,68 @@
+# Whether this server is running on a secure port
+accessedViaHttps: false
+
+# Cloud service integration information
+cloudServices:
+  hpcs.compute:
+    version: 2 #1.1
+    # API URL format with an optional placeholder for AZ
+    urlFormat: https://region-b.geo-1.compute.hpcloudsvc.com/v2 # https://region-a.geo-1.compute.hpcloudsvc.com/v1.1
+    port: 80
+  hpcs.object-store:
+    version: 1.0
+    urlFormat: https://region-a.geo-1.objects.hpcloudsvc.com/v1.0 # https://region-a.geo-1.compute.hpcloudsvc.com/v1
+    port: 80
+
+# Identity (Control services)
+identityService:
+  url: <%=@creds['identyService']['url']%> #https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/tokens
+  username: <%=username%>
+  password: <%=password%>
+  tenantId: <%=tenantId%> 
+
+# Topic for publishing metrics to
+metricsTopic: metrics
+
+# Topic for publishing domain events to
+eventsTopic: events
+
+kafka:
+  brokerUris: 
+    - <%=@settings['kafka']['hostname']%>:9092
+  zookeeperUris:
+    - <%=@settings['kafka']['hostname']%>:2181
+  healthCheckTopic: healthcheck
+
+database:
+  driverClass: com.mysql.jdbc.Driver
+  url: jdbc:mysql://<%= @creds['mysql']['hostname']%>:3306/<%=@creds['mysql']['schema']%>?connectTimeout=5000&autoReconnect=true
+  user: <%=@creds['mysql']['username'] %>
+  password: <%=@creds['mysql']['password'] %> 
+  maxWaitForConnection: 1s
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+  minSize: 8
+  maxSize: 32
+  checkConnectionWhileIdle: false
+
+jerseyClient:
+  gzipEnabledForRequests: false
+
+middleware:
+  enabled: false
+  serviceIds: 100
+  endpointIds: 160
+  serverVIP: <%= @creds['middleware']['vip']%>
+  serverPort: 9543
+  connTimeout: 500
+  connSSLClientAuth: true
+  keystore: /etc/ssl/hpmiddleware-keystore.jks
+  keystorePass: changeit
+  truststore: /etc/ssl/hpmiddleware-truststore.jks
+  truststorePass: <%= @creds['middleware']['truststore_password'] %>
+  connPoolMaxActive: 3
+  connPoolMaxIdle: 3
+  connPoolEvictPeriod: 600000
+  connPoolMinIdleTime: 600000
+  connRetryTimes: 2
+  connRetryInterval: 50
+  rolesToMatch: [user, domainuser, domainadmin]
