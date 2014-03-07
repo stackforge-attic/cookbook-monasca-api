@@ -1,2 +1,2 @@
-node.default[:som_api][:group] = 'som_api'
-node.default[:som_api][:owner] = 'som_api'
+node.default[:mon_api][:group] = 'mon_api'
+node.default[:mon_api][:owner] = 'mon_api'
