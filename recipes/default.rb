@@ -17,6 +17,9 @@ directory "/var/log/mon-api" do
     action :create
 end
 
+creds = data_bag_item(node[:mon_api][:data_bag], 'mon_credentials')
+setting = data_bag_item(node[:mon_api][:data_bag], 'mon_api')
+
 # Create the config file
 template '/etc/mon/mon-api-config.yml' do
   action :create
@@ -32,8 +35,7 @@ template '/etc/mon/mon-api-config.yml' do
 end
 
 
-credentials = data_bag_item(node[:mon_api][:data_bag], 'mon_credentials')
-setting = data_bag_item(node[:mon_api][:data_bag], 'mon_api')
+
 
 cookbook_file "/etc/ssl/hpmiddleware-keystore.jks" do 
   source creds[:keystore_file]
