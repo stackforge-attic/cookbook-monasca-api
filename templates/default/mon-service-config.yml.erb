@@ -28,9 +28,9 @@ eventsTopic: events
 
 kafka:
   brokerUris: 
-    - <%=@settings['kafka']['hostname']%>:9092
+    - <%=@setting['kafka']['hostname']%>:9092
   zookeeperUris:
-    - <%=@settings['kafka']['hostname']%>:2181
+    - <%=@setting['kafka']['hostname']%>:2181
   healthCheckTopic: healthcheck
 
 database:
