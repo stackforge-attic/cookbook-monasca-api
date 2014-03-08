@@ -11,8 +11,8 @@ end
 
 directory "/var/log/mon-api" do
     recursive true
-    owner node[:mon_api][:owner]
-    group node[:mon_api][:group]
+    owner root
+    group root
     mode 0755
     action :create
 end
