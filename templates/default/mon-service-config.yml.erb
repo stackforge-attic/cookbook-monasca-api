@@ -16,9 +16,9 @@ cloudServices:
 # Identity (Control services)
 identityService:
   url: <%=@creds['identyService']['url']%> #https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/tokens
-  username: <%=username%>
-  password: <%=password%>
-  tenantId: <%=tenantId%> 
+  username: <%=@creds['identyService']['username']%>
+  password: <%=@creds['identyService']['password']%>
+  tenantId: <%=@creds['identyService']['tenantId']%> 
 
 # Topic for publishing metrics to
 metricsTopic: metrics
