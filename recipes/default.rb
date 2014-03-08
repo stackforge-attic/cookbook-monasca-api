@@ -29,7 +29,7 @@ template '/etc/mon/mon-api-config.yml' do
   source "service-config.yml.erb"
   variables(
     :creds => creds,
-    :keystore_pass => keystore_pass
+    :setting => setting
   )
   notifies :restart, "service[som-api]"
 end
