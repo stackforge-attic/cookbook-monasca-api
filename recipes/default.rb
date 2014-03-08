@@ -31,7 +31,7 @@ template '/etc/mon/mon-api-config.yml' do
     :creds => creds,
     :setting => setting
   )
-  notifies :restart, "service[som-api]"
+  notifies :restart, "service[mon-api]"
 end
 
 
