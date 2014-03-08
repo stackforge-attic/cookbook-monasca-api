@@ -52,11 +52,4 @@ cookbook_file "/etc/ssl/hpmiddleware-truststore.jks" do
 end
 
 
-# Until dropwizard 0.7.0 there is no support for running on a privileged port as an unprivleged user, I work around this via ufw rules
-bash "nat 443 to 8080" do
-  action :run
-  code 'echo -e "*nat\n:PREROUTING ACCEPT [0:0]\n-A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8080\nCOMMIT" >> /etc/ufw/before.rules'
-  not_if "grep 'to-port 8080' /etc/ufw/before.rules"
-  notifies :restart, "service[ufw]"
-end
 
