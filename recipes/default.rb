@@ -11,8 +11,8 @@ end
 
 directory "/var/log/mon-api" do
     recursive true
-    owner "root"
-    group "root"
+    owner node[:mon_api][:owner]
+    group node[:mon_api][:group]
     mode 0755
     action :create
 end
@@ -26,7 +26,7 @@ template '/etc/mon/mon-api-config.yml' do
   owner 'root'
   group node[:mon_api][:group]
   mode '640'
-  source "service-config.yml.erb"
+  source "mon-service-config.yml.erb"
   variables(
     :creds => creds,
     :setting => setting
