@@ -38,7 +38,7 @@ end
 
 
 cookbook_file "/etc/ssl/hpmiddleware-keystore.jks" do 
-  source creds[:middleware][:keystore_file]
+  source 'hpmiddleware-keystore-production.jks'
   owner 'root'
   group node[:mon_api][:group]
   mode '640'
