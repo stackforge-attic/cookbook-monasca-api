@@ -37,7 +37,7 @@ database:
   driverClass: com.mysql.jdbc.Driver
   url: jdbc:mysql://<%= @creds['mysql']['hostname']%>:3306/<%=@creds['mysql']['schema']%>?connectTimeout=5000&autoReconnect=true
   user: <%=@creds['mysql']['username'] %>
-  password: <%=@creds['mysql']['password'] %> 
+  password: <%=@creds['mysql']['password'] %>
   maxWaitForConnection: 1s
   validationQuery: "/* MyService Health Check */ SELECT 1"
   minSize: 8
