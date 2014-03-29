@@ -14,7 +14,7 @@ kafka:
     - <%=@setting['kafka']['hostname']%>:2181
   healthCheckTopic: healthcheck
 
-database:
+mysql:
   driverClass: com.mysql.jdbc.Driver
   url: jdbc:mysql://<%= @creds['mysql']['hostname']%>:3306/<%=@creds['mysql']['schema']%>?connectTimeout=5000&autoReconnect=true
   user: <%=@creds['mysql']['username'] %>
@@ -24,6 +24,17 @@ database:
   minSize: 8
   maxSize: 32
   checkConnectionWhileIdle: false
+
+vertica:
+  driverClass: com.vertica.jdbc.Driver
+  url: jdbc:vertica://<%= @creds['vertica']['hostname']%>/<%=@creds['vertica']['schema']%>
+  user: <%=@creds['vertica']['username'] %>
+  password: <%=@creds['vertica']['password'] %>
+  maxWaitForConnection: 1s
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+  minSize: 4
+  maxSize: 32
+  checkConnectionWhileIdle: false  
 
 middleware:
   enabled: false
