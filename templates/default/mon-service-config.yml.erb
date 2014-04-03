@@ -76,10 +76,10 @@ logging:
       logFormat: # TODO
 
     - type: file
-      currentLogFilename: /var/log/mon-api.log
+      currentLogFilename: /var/log/mon-api/mon-api.log
       threshold: ALL
       archive: true
-      archivedLogFilenamePattern: /var/log/mon-api-%d.log.gz
+      archivedLogFilenamePattern: /var/log/mon-api/mon-api-%d.log.gz
       archivedFileCount: 5
       timeZone: UTC
       logFormat: # TODO
