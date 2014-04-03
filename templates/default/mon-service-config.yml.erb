@@ -55,3 +55,38 @@ middleware:
   connRetryTimes: 2
   connRetryInterval: 50
   rolesToMatch: [user, domainuser, domainadmin]
+
+# Logging settings.
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  # Logger-specific levels.
+  loggers:
+
+    # Sets the level for 'com.example.app' to DEBUG.
+    com.example.app: DEBUG
+
+  appenders:
+    - type: console
+      threshold: ALL
+      timeZone: UTC
+      target: stdout
+      logFormat: # TODO
+
+    - type: file
+      currentLogFilename: /var/log/mon-api.log
+      threshold: ALL
+      archive: true
+      archivedLogFilenamePattern: /var/log/mon-api-%d.log.gz
+      archivedFileCount: 5
+      timeZone: UTC
+      logFormat: # TODO
+
+    - type: syslog
+      host: localhost
+      port: 514
+      facility: local0
+      threshold: ALL
+      logFormat: # TODO
