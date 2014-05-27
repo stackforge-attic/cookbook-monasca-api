@@ -11,7 +11,7 @@ kafka:
   brokerUris: 
     - <%=@setting['kafka']['hostname']%>:9092
   zookeeperUris:
-    - <%=@setting['kafka']['hostname']%>:2181
+    - <%=@setting['zookeeper']['hostname']%>:2181
   healthCheckTopic: healthcheck
 
 mysql:
