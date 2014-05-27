@@ -9,9 +9,13 @@ eventsTopic: events
 
 kafka:
   brokerUris: 
-    - <%=@setting['kafka']['hostname']%>:9092
+<%- @setting['kafka']['hostname'].split(',').each do |host| %>
+    - <%= host %>:9092
+<%- end %>
   zookeeperUris:
-    - <%=@setting['zookeeper']['hostname']%>:2181
+<%- @setting['zookeeper']['hostname'].split(',').each do |host| %>
+    - <%= host %>:2181
+<%- end %>
   healthCheckTopic: healthcheck
 
 mysql:
