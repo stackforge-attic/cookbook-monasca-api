@@ -33,6 +33,19 @@ mysql:
   checkConnectionWhileIdle: false
   checkConnectionOnBorrow: true
 
+databaseConfiguration:
+# vertica | influxdb
+  databaseType: <%= @setting['database-configuration']['database-type'] %>
+
+# Uncomment if databaseType is influxDB
+#influxDB:
+#  name: mon
+#  replicationFactor: 1
+#  url: http://127.0.0.1:8086
+#  user:  root
+#  password: root
+
+# Uncomment if databaseType is vertica
 vertica:
   driverClass: com.vertica.jdbc.Driver
   url: jdbc:vertica://<%= @creds['vertica']['hostname']%>/<%=@creds['vertica']['schema']%>
