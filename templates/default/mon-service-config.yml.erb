@@ -77,6 +77,11 @@ middleware:
   connRetryInterval: 50
   rolesToMatch: [user, domainuser, domainadmin]
 
+server:
+  applicationConnectors:
+    - type: http
+      maxRequestHeaderSize: 16KiB  # Allow large headers used by keystone tokens
+
 # Logging settings.
 logging:
 
