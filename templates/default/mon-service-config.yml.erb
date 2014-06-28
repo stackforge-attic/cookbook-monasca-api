@@ -78,8 +78,8 @@ middleware:
   rolesToMatch: [user, domainuser, domainadmin,_member_]
   adminAuthMethod: <%= @creds['middleware']['adminAuthMethod'] %>
   adminUser: <%= @creds['middleware']['adminUser'] %>
-  adminPassword: <% @creds['middleware']['adminPassword'] %>
-  adminToken: <% @creds['middleware']['adminToken'] %> 
+  adminPassword: <%= @creds['middleware']['adminPassword'] %>
+  adminToken: <%= @creds['middleware']['adminToken'] %> 
   timeToCacheToken: 600
   maxTokenCacheSize: 1048576
 
