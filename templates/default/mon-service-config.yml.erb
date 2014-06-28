@@ -58,7 +58,7 @@ vertica:
   checkConnectionWhileIdle: false  
 
 middleware:
-  enabled: false
+  enabled: true
   serviceIds: 100
   endpointIds: 160
   serverVIP: <%= @creds['middleware']['serverVip'] %>
@@ -75,7 +75,13 @@ middleware:
   connPoolMinIdleTime: 600000
   connRetryTimes: 2
   connRetryInterval: 50
-  rolesToMatch: [user, domainuser, domainadmin]
+  rolesToMatch: [user, domainuser, domainadmin,_member_]
+  adminAuthMethod: <%= @creds['middleware']['adminAuthMethod'] %>
+  adminUser: <%= @creds['middleware']['adminUser'] %>
+  adminPassword: <% @creds['middleware']['adminPassword'] %>
+  adminToken: <% @creds['middleware']['adminToken'] %> 
+  timeToCacheToken: 600
+  maxTokenCacheSize: 1048576
 
 server:
   applicationConnectors:
