@@ -34,8 +34,9 @@ mysql:
   checkConnectionOnBorrow: true
 
 databaseConfiguration:
+<%- if @setting['database-configuration']['database-type'] == 'vertica' %>
 # vertica | influxdb
-  databaseType: <%= @setting['database-configuration']['database-type'] %>
+  databaseType: vertica
 
 # Uncomment if databaseType is influxDB
 #influxDB:
@@ -56,6 +57,30 @@ vertica:
   minSize: 4
   maxSize: 32
   checkConnectionWhileIdle: false  
+<%- else %>
+# vertica | influxdb
+  databaseType: influxdb
+
+# Uncomment if databaseType is influxDB
+influxDB:
+  name: <%= @setting['influxdb']['dbname'] %>
+  replicationFactor: 1
+  url: http://<%= @setting['influxdb']['hostname'] %>:8086
+  user: <%=@creds['influxdb']['username'] %>
+  password: <%=@creds['influxdb']['password'] %>
+
+# Uncomment if databaseType is vertica
+#vertica:
+#  driverClass: com.vertica.jdbc.Driver
+#  url: jdbc:vertica://localhost/mon
+#  user: dbadmin
+#  password: password
+#  maxWaitForConnection: 1s
+#  validationQuery: "/* MyService Health Check */ SELECT 1"
+#  minSize: 4
+#  maxSize: 32
+#  checkConnectionWhileIdle: false  
+<%- end %>
 
 middleware:
   enabled: true
