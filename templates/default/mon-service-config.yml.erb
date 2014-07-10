@@ -70,16 +70,17 @@ influxDB:
   password: <%=@creds['influxdb']['password'] %>
 
 # Uncomment if databaseType is vertica
-#vertica:
-#  driverClass: com.vertica.jdbc.Driver
-#  url: jdbc:vertica://localhost/mon
-#  user: dbadmin
-#  password: password
-#  maxWaitForConnection: 1s
-#  validationQuery: "/* MyService Health Check */ SELECT 1"
-#  minSize: 4
-#  maxSize: 32
-#  checkConnectionWhileIdle: false  
+# As of 7/10 there is a bug in the mon-api that requires this section even if databaseType is set to influxdb
+vertica:
+  driverClass: com.vertica.jdbc.Driver
+  url: jdbc:vertica://localhost/mon
+  user: dbadmin
+  password: password
+  maxWaitForConnection: 1s
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+  minSize: 4
+  maxSize: 32
+  checkConnectionWhileIdle: false  
 <%- end %>
 
 middleware:
