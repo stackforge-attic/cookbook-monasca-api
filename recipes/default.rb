@@ -34,17 +34,3 @@ template '/etc/mon/mon-api-config.yml' do
   )
   notifies :restart, 'service[mon-api]'
 end
-
-cookbook_file '/etc/ssl/hpmiddleware-keystore.jks' do
-  source 'hpmiddleware-keystore-production.jks'
-  owner 'root'
-  group node[:mon_api][:group]
-  mode '640'
-end
-
-cookbook_file '/etc/ssl/hpmiddleware-truststore.jks' do
-  source 'hpmiddleware-truststore.jks'
-  owner 'root'
-  group node[:mon_api][:group]
-  mode '640'
-end
