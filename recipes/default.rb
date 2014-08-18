@@ -34,3 +34,37 @@ template '/etc/mon/mon-api-config.yml' do
   )
   notifies :restart, 'service[mon-api]'
 end
+
+if setting['database-configuration']['database-type'] == 'vertica'
+
+  # Create the directory for the vertica JDBC jar
+  directory '/opt/mon/vertica' do
+    recursive true
+    owner 'root'
+    group 'root'
+    mode 0755
+    action :create
+  end
+
+  # Copy the vertica jdbc jar from /vagrant
+  bash 'vertica_jdbc.jar' do
+    action :run
+    code <<-EOL
+    DEST=/opt/mon/vertica/vertica_jdbc.jar
+    if [ ! -s ${DEST} ]; then
+       SRC=`ls /vagrant/vertica-jdbc-*.jar`
+       if [ $? != 0 ]; then
+          echo 'You must place a Vertica JDBC jar in the directory where you do the "vagrant up"' 1>&2
+          exit 1
+       fi
+       cp "$SRC" $DEST
+       RC=$?
+       if [ $RC != 0 ]; then
+          exit $RC
+       fi
+       chown root:root $DEST
+       chmod 0555 $DEST
+    fi
+    EOL
+  end
+end
