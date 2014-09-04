@@ -70,7 +70,7 @@ influxDB:
   password: <%=@creds['influxdb']['password'] %>
 
 # Uncomment if databaseType is vertica
-# As of 7/10 there is a bug in the mon-api that requires this section even if databaseType is set to influxdb
+# As of 7/10 there is a bug in the monasca-api that requires this section even if databaseType is set to influxdb
 vertica:
   driverClass: com.vertica.jdbc.Driver
   url: jdbc:vertica://localhost/mon
@@ -131,10 +131,10 @@ logging:
       logFormat: # TODO
 
     - type: file
-      currentLogFilename: /var/log/mon-api/mon-api.log
+      currentLogFilename: /var/log/monasca/monasca-api.log
       threshold: ALL
       archive: true
-      archivedLogFilenamePattern: /var/log/mon-api/mon-api-%d.log.gz
+      archivedLogFilenamePattern: /var/log/monasca/monasca-api-%d.log.gz
       archivedFileCount: 5
       timeZone: UTC
       logFormat: # TODO

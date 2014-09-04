@@ -1,44 +1,53 @@
 # encoding: UTF-8#
 #
 
-package 'mon-api' do
+group node[:monasca_api][:group] do
+  action :create
+end
+user node[:monasca_api][:owner] do
+  action :create
+  system true
+  gid node[:monasca_api][:group]
+end
+
+package 'monasca-api' do
   action :upgrade
 end
 
-service 'mon-api' do
+service 'monasca-api' do
   action :enable
   provider Chef::Provider::Service::Upstart
 end
 
-directory '/var/log/mon-api' do
+directory '/var/log/monasca' do
   recursive true
-  owner node[:mon_api][:owner]
-  group node[:mon_api][:group]
-  mode 0755
+  owner node[:monasca_api][:owner]
+  group node[:monasca_api][:group]
+  mode 0775
   action :create
 end
 
-creds = data_bag_item(node[:mon_api][:data_bag], 'mon_credentials')
-setting = data_bag_item(node[:mon_api][:data_bag], 'mon_api')
+creds = data_bag_item(node[:monasca_api][:data_bag], 'credentials')
+setting = data_bag_item(node[:monasca_api][:data_bag], 'monasca_api')
 
 # Create the config file
-template '/etc/mon/mon-api-config.yml' do
+template '/etc/monasca/api-config.yml' do
   action :create
   owner 'root'
-  group node[:mon_api][:group]
+  group node[:monasca_api][:group]
   mode '640'
-  source 'mon-service-config.yml.erb'
+  source 'api-config.yml.erb'
   variables(
     creds: creds,
     setting: setting
   )
-  notifies :restart, 'service[mon-api]'
+  notifies :restart, 'service[monasca-api]'
 end
 
 if setting['database-configuration']['database-type'] == 'vertica'
 
   # Create the directory for the vertica JDBC jar
-  directory '/opt/mon/vertica' do
+  directory '/opt/monasca/vertica' do
     recursive true
     owner 'root'
     group 'root'
@@ -50,7 +59,7 @@ if setting['database-configuration']['database-type'] == 'vertica'
   bash 'vertica_jdbc.jar' do
     action :run
     code <<-EOL
-    DEST=/opt/mon/vertica/vertica_jdbc.jar
+    DEST=/opt/monasca/vertica/vertica_jdbc.jar
     if [ ! -s ${DEST} ]; then
        SRC=`ls /vagrant/vertica-jdbc-*.jar`
        if [ $? != 0 ]; then

@@ -1,5 +1,5 @@
 # encoding: UTF-8#
 #
-node.default[:mon_api][:group] = 'mon_api'
-node.default[:mon_api][:owner] = 'mon_api'
-node.default[:mon_api][:data_bag] = 'mon_api'
+node.default[:monasca_api][:group] = 'monasca'
+node.default[:monasca_api][:owner] = 'monasca_api'
+node.default[:monasca_api][:data_bag] = 'monasca_api'
