@@ -1,3 +1,7 @@
+WARNING!!
+
+Monasca is now deployed via Ansible. This project is no longer maintained and may be out of date. It will be moved to the StackForge attic soon.
+
 # Description
 Configures and sets up the Monasca api. Includes attributes for log backups, ossec file watching and ossec rules.
 Also included is an icinga check for the service health check.
